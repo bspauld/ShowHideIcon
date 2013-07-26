@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html style="height: 100%;>
+<head>
+<title>Show and Hide Icons with Leaflet</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+<!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+<link href="style/leaflet.css" rel="stylesheet" type="text/css">
+</head>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+ 
+<body style="height: 100%;" onload="load_map();">
+	<div class="Title_TextBoxes">
+		<p style="font-size:medium;"><b>Show and hide map icons using Leaflet</b></p>
+	</div>
+	<div class="ShowHide_Box" style="left:15px; top:25%;">
+		<p id="load_Icon" onclick=load_Icon() style="font-size:medium;"><a href="#"style="text-decoration:none;color:black;" /><b>Show Icons</b></a></p>
+	</div>
+	<div class="ShowHide_Box" style="left:15px; top:35%;">
+		<p id="clear_Icon" onclick=clear_Icon() style="font-size:medium;"><a href="#"style="text-decoration:none;color:black;" /><b>Remove Icons</b></a></p>
+	</div>
+ 	<div class="Credits">
+		<p style="font-size:x-small;">Built using <a href="http://leafletjs.com/"/>Leaflet</a> - for demo purposes only</p>
+		<p style="font-size:x-small;">For more geo ideas check out <a href="http://www.gisdoctor.com/site/"/>GISDoctor.com</a></p>
+		<p style="font-size:x-small;">Follow <a href="http://twitter.com/GISdoctor"/>@GISDoctor on Twitter</a></p> 
+	</div>
+</div>
+<div id="map" style="width: 100%; height: 99%"> </div>
+ 
+ 
+<script>
+    
+     function load_map()
+     {
+	  L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+            }).addTo(map);
+     }	  
+    var popupOptions = L.Popup.extend({
+        options: {
+            autoPan: true,
+            offset: [150,150],
+            autoPanPadding: [300,300],
+            closeButton: true
+        }
+    });
+   
+	
+    var Point_One = "";
+    var Point_Two = "";
+    var Point_Three = "";
+    var onPointCounter = 0;
+       
+    function load_Icon()
+    {
+                               
+        if (onPointCounter + 1 == 1)
+            {
+                Point_One = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 1</div>",{Popup:popupOptions});
+                Point_Two = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 2 </div>",{Popup:popupOptions});
+                Point_Three = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 3 </div>",{Popup:popupOptions});
+                onPointCounter =  1;
+            } 
+		else
+		{
+			onPointCounter =  1;
+		}
+    }
+    
+    function clear_Icon()
+    {
+        map.removeLayer(Point_One);
+        map.removeLayer(Point_Two);
+        map.removeLayer(Point_Three);
+		onPointCounter = 0;
+		
+    }
+	
+ var map = L.map('map',{ zoomControl:false }).setView([40, -95], 4);
+ 
+</script>
+ <!--Do not copy and paste the next two blocks of code into your page-->
+<script type="text/javascript"> 
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+<script type="text/javascript"> 
+    var pageTracker = _gat._getTracker("UA-10269571-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+</script> 
+</body>
+</html>
