@@ -31,7 +31,7 @@
  
  
 <script>
-    
+    //create a function to load the map, including setting the map parameters
      function load_map()
      {
 	  L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
@@ -39,37 +39,44 @@
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
             }).addTo(map);
      }	  
-    var popupOptions = L.Popup.extend({
-        options: {
-            autoPan: true,
-            offset: [150,150],
-            autoPanPadding: [300,300],
-            closeButton: true
-        }
-    });
+    
+    	//Set a variable to control the popups for the icons.  Probably don't need this for this specific example, but it's good
+    	//to see how it would work
+    	var popupOptions = L.Popup.extend({
+        	options: {
+            		autoPan: true,
+            		offset: [150,150],
+            		autoPanPadding: [300,300],
+            		closeButton: true
+        	}
+    	});
    
-	
-    var Point_One = "";
-    var Point_Two = "";
-    var Point_Three = "";
-    var onPointCounter = 0;
+	//Set a global variables for the three random points	
+    	var Point_One = "";
+    	var Point_Two = "";
+    	var Point_Three = "";
+    	
+    	//Set a counter at zero - will increment when the layers are turned on - see the if statement in the load_Icon function
+    	var onPointCounter = 0;
        
     function load_Icon()
     {
-                               
+        //add 1 to the onPointCounter to initialize the three markers randomly added to the map                       
         if (onPointCounter + 1 == 1)
-            {
-                Point_One = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 1</div>",{Popup:popupOptions});
-                Point_Two = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 2 </div>",{Popup:popupOptions});
-                Point_Three = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 3 </div>",{Popup:popupOptions});
-                onPointCounter =  1;
-            } 
-		else
+            	{
+        	 	Point_One = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 1</div>",{Popup:popupOptions});
+                	Point_Two = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 2 </div>",{Popup:popupOptions});
+                	Point_Three = L.marker([(Math.floor((Math.random()*(49.5-23.5)+23.5))),(Math.floor((Math.random()*((-125)-(-70))+(-70))))]).addTo(map).bindPopup("<div>Marker 3 </div>",{Popup:popupOptions});
+                	//set the onPointCounter to 1
+                	onPointCounter =  1;
+            	} 
+	else
 		{
 			onPointCounter =  1;
 		}
     }
     
+    //Clear the icons
     function clear_Icon()
     {
         map.removeLayer(Point_One);
